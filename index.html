@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+       let services = Number(prompt('Welcome to our services.\n 1.Airtime-self \n 2.Airtime-others \n 3.Data \n 4.Transfer'));
+       if (services === 1) {
+           alert("successful")
+       }
+           else if(services === 2){
+               alert(prompt("insert number"))
+               alert("successful")
+       } 
+       else if(services === 3){
+           let data = Number(prompt(" 1.200MB for #100 \n 2.500MB for #300 \n 1.5GB for #1000 \n 4.3.5GB for #2000'"))
+           if (data === 1) {
+               alert("successful")
+           }else{
+               alert("invalid input")
+           }
+       }else {
+           alert("Wrong Input try again")
+       }
+    </script>
+</body>
+</html>
