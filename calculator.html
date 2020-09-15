@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!--  
+    Addition
+    Subtraction
+    Multiplication
+    Division
+  -->
+  <script>
+    
+    let number_1 = Number(prompt("Enter First Number"));
+    let number_2 = Number(prompt("Enter Second Number"));
+
+    let operator = Number(prompt(` Select a value:
+    1.Addition
+    2.Subtraction
+    3.Multiplication
+    4.Division`));
+    simpleCalc(operator, number_1, number_2);
+    // main function
+    function simpleCalc(operator, a, b){
+      if (operator == 1){
+        add(a,b)
+      } else if(operator == 2){
+        sub(a,b)
+      } else if(operator == 3){
+        mult(a,b)
+      } else if(operator == 4){
+        div(a,b)
+      } else if(Number.isNaN(a,b)){
+        alert("I do not understand")
+      }
+    }
+    //Addition
+      function add(a,b){
+        var ans =  a + b
+        alert(`${a} + ${b} = ${ans}`)
+      }
+      //Subtraction
+      function sub(a,b){
+        var ans =  a - b
+        alert(`${a} - ${b} = ${ans}`)
+      }
+      //Multiply
+      function mult(a,b){
+        var ans =  a * b
+        alert(`${a} x ${b} = ${ans}`)
+      }
+      //Division
+      function div(a,b){
+        var ans =  a / b
+        alert(`${a} / ${b} = ${ans}`)
+      }
+  
+  </script>
+</body>
+</html>
