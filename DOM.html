@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+	<style>
+		/* body section */
+		body{
+			background: #227c92;
+		}
+		/* Table content */
+		table {
+		  font-family: sans-serif;
+		  border-collapse: collapse;
+		  width: 70%;
+		  background-color: transparent;
+		  margin-top: 100px;
+		  margin-left: 180px;
+		  color: #fff;
+		}
+		td, th {
+		  border: 1px solid #06010a;
+		  text-align: center;
+		  padding: 8px;
+		}
+	</style>	
+<title>Dom</title>
+</head>
+
+
+<body>
+	<!-- content section -->
+<div id="content"></div>
+
+<script>
+	// Arrays Dom
+	company = [
+		{
+			"SN" : "1",
+			"name" : "Tiidelab",
+			"mail" : "hi@Tiidelab.com",
+			"phone" : "07012302221",
+			"location" : "Africa"
+		},
+		{
+			"SN" : "2",
+			"name" : "She Code Africa",
+			"mail" : "help@sca.com",
+			"phone" : "08131208722",
+			"location" : "Africa"
+		},
+		{
+			"SN" : "3",
+			"name" : "HNG",
+			"mail" : "contact@hng.com",
+			"phone" : "09090909030",
+			"location" : "Nigeria"
+		},
+		{
+			"SN" : "4",
+			"name" : "Andela",
+			"mail" : "me@andela.com",
+			"phone" : "08099980989",
+			"location" : "World"
+		},
+		{
+			"SN" : "5",
+			"name" : "T-Circuit",
+			"mail" : "hello@t-circuit.com",
+			"phone" : "04345646675",
+			"location" : "World"
+		}
+	]
+	// prompt for insert value
+	insert = confirm("Do you want to add more data? \n Cancel to display data");
+	sendData();
+	function sendData() {
+		if(insert == true) {
+			company[company.length] = {
+				"SN" : company.length + 1,
+				"name" : prompt("Enter a name:"),
+				"mail" : prompt("Enter a mail:"),
+				"phone" : prompt("Enter phone:"),
+				"location" : prompt("Enter a Location:")
+			}
+			insert = confirm("Do you want to add more name? \n Cancel to display data");
+			sendData();
+	} 
+	}
+	
+	objectKeys = Object.keys(company[0]);
+	result = `
+    <table cellpadding="10" align="center">
+	<tr>`;
+	for(i=0; i < objectKeys.length; i++) {
+		result += `<th>${(objectKeys[i]).toUpperCase()}</th>`
+	}
+	result += `
+    </tr>
+    <tbody>
+	`;
+	for(k=0; k < company.length; k++) {
+		result += `<tr>`;
+		result += `<td>${company[k].SN}</td>`;
+		result += `<td>${company[k].name}</td>`;
+		result += `<td>${company[k].mail}</td>`;
+		result += `<td>${company[k].phone}</td>`;
+		result += `<td>${company[k].location}</td>`;
+		result += `</tr>`;
+	}
+	result += `
+    </tbody>
+	</table>
+	`;
+	document.getElementById("content").innerHTML = `${result}`;	
+</script>
+		
+		
+	</body>
+</html>
