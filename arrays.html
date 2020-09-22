@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile image</title>
+</head>
+<style>
+    *
+        body{
+            background: rgb(78, 141, 78);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    div#content{
+        padding: 20px;
+        margin-left: 30%;
+        margin-top: 2%;
+    }
+    img{
+        width: 160px;
+        height: 200px;
+        border-radius: 40%;
+    }
+    strong{
+        color: white;
+        margin: 10px;
+    }
+	button{
+		width: 15%;
+		padding: 10px;
+		color: green;
+		background: #fff;
+		border-radius: 50px;
+		border: green;
+		outline: none;
+	}
+	button.edit:hover{
+		color: #fff;
+		background-color: green;
+	}
+	button.delete:hover{
+		color: #fff;
+		background-color: red;
+	}
+	.new-profile{
+		background: green;
+		color:#fff;
+		margin-left: 500px;
+	}
+	.new-profile:hover{
+		color:black;
+		background: #fff;
+	}
+</style>
+<div><button onClick="addUser(${i});" class="new-profile">Add new profile</button></div>
+<div id="content">
+
+</div>
+<body>
+
+<script>
+	//Array of profile
+	users = [
+		{
+                "fullName": "AkanWealth Asanga",
+                "email": "akan@gmail.com",
+                "phone": "07012302221",
+                "pic": "1.jpg"
+            },
+            {
+                "fullName": "Adebiyi Rotimi",
+                "email": "rotimi@gmail.com",
+                "phone": "07012302221",
+                "pic": "2.jpg"
+            },
+			{
+                "fullName": "Opaluwa Aisha",
+                "email": "aisha@gmail.com",
+                "phone": "07012302221",
+                "pic": "3.jpg"
+            }
+        ]
+
+	function Profile() { 
+		content = "";
+		//displays the profile information
+		for(i=0; i < users.length; i++) {		
+			content += `<div>
+			<img src="${users[i].pic}">
+			<div class="info">
+			<strong> Full Name : </strong> ${users[i].fullName}<br>
+			<strong>Email :</strong>${users[i].email}<br>
+			<strong>Phone :</strong>${users[i].phone}<br>
+			</div>
+			<button onClick="editUser(${i});" class="edit">Edit User</button> &nbsp; <button onClick="deleteUser(${i});" class="delete">Delete User</button>
+			</div>
+		</div> <hr>`;
+		}
+		//display the content on html
+		document.getElementById("content").innerHTML = `${content}`;
+		user.push(users)
+	}
+	
+Profile(); 
+
+//Add profile
+function addUser() { 
+		users[users.length] = {
+			"pic" : prompt("Insert an image"),
+			"fullName" : prompt("Enter your full name:"),
+			"email" : prompt("Enter your email address:"),
+			"phone" : prompt("Enter your phone number:")
+		}
+			Profile();
+	}
+
+	//Edit profile
+	function editUser(userId) { 
+		info = confirm("Are you sure you want to edit profile?")
+		if (info == true) {
+			users[userId] = {
+			"pic" : prompt("Want to change image:", users[userId].pic),
+			"fullName" : prompt("Change name:", users[userId].fullName),
+			"email" : prompt("Change your email address:", users[userId].email),
+			"phone" : prompt("Enter new phone:", users[userId].phone)
+			}
+			Profile();
+		}
+	}
+	
+	//Delete profile
+	function deleteUser(userId) { //adds another info about a company
+		info = confirm("Are you sure you want to delete profile?")
+		if (info == true) {
+			users.splice(userId, 1);
+			Profile();
+
+		}
+	}
+	
+</script>
+</body>
+</html>
