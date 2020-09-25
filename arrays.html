@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile image</title>
+    <title>User Profile</title>
 </head>
 <style>
     *
@@ -25,119 +27,111 @@
         color: white;
         margin: 10px;
     }
-	button{
-		width: 15%;
-		padding: 10px;
-		color: green;
-		background: #fff;
-		border-radius: 50px;
-		border: green;
-		outline: none;
-	}
-	button.edit:hover{
-		color: #fff;
-		background-color: green;
-	}
-	button.delete:hover{
-		color: #fff;
-		background-color: red;
-	}
-	.new-profile{
-		background: green;
-		color:#fff;
-		margin-left: 500px;
-	}
-	.new-profile:hover{
-		color:black;
-		background: #fff;
-	}
+    button{
+        width: 15%;
+        padding: 10px;
+        color: green;
+        background: #fff;
+        border-radius: 50px;
+        border: green;
+        outline: none;
+        margin-bottom: 5px;
+    }
+    button.edit:hover{
+        color: #fff;
+        background-color: green;
+    }
+    button.delete:hover{
+        color: #fff;
+        background-color: red;
+    }
+    .new-profile{
+        background: green;
+        color:#fff;
+        margin-left: 500px;
+    }
+    .new-profile:hover{
+        color:black;
+        background: #fff;
+    }
 </style>
-<div><button onClick="addUser(${i});" class="new-profile">Add new profile</button></div>
+<div><button onClick="addUser()" class="new-profile">Add new profile</button></div>
 <div id="content">
-
 </div>
 <body>
-
-<script>
-	//Array of profile
-	users = [
-		{
-                "fullName": "AkanWealth Asanga",
-                "email": "akan@gmail.com",
+    <script>
+        //Array profile
+        let users = [
+            {
+                "fullName" : "AkanWealth Asanga",
+                "email": "akan.asanga@gmail.com",
                 "phone": "07012302221",
-                "pic": "1.jpg"
+                "pic": "1.jpg",
             },
             {
-                "fullName": "Adebiyi Rotimi",
-                "email": "rotimi@gmail.com",
-                "phone": "07012302221",
+               "fullName" : "Akan Wealth",
+                "email": "akan.wealth@gmail.com",
+                "phone": "08131208722",
                 "pic": "2.jpg"
-            },
-			{
-                "fullName": "Opaluwa Aisha",
-                "email": "aisha@gmail.com",
-                "phone": "07012302221",
-                "pic": "3.jpg"
             }
-        ]
+            ];
+            displayContent()
 
-	function Profile() { 
-		content = "";
-		//displays the profile information
-		for(i=0; i < users.length; i++) {		
-			content += `<div>
-			<img src="${users[i].pic}">
-			<div class="info">
-			<strong> Full Name : </strong> ${users[i].fullName}<br>
-			<strong>Email :</strong>${users[i].email}<br>
-			<strong>Phone :</strong>${users[i].phone}<br>
-			</div>
-			<button onClick="editUser(${i});" class="edit">Edit User</button> &nbsp; <button onClick="deleteUser(${i});" class="delete">Delete User</button>
-			</div>
-		</div> <hr>`;
-		}
-		//display the content on html
-		document.getElementById("content").innerHTML = `${content}`;
-		user.push(users)
-	}
-	
-Profile(); 
-
-//Add profile
-function addUser() { 
-		users[users.length] = {
-			"pic" : prompt("Insert an image"),
-			"fullName" : prompt("Enter your full name:"),
-			"email" : prompt("Enter your email address:"),
-			"phone" : prompt("Enter your phone number:")
-		}
-			Profile();
-	}
-
-	//Edit profile
-	function editUser(userId) { 
-		info = confirm("Are you sure you want to edit profile?")
-		if (info == true) {
-			users[userId] = {
-			"pic" : prompt("Want to change image:", users[userId].pic),
-			"fullName" : prompt("Change name:", users[userId].fullName),
-			"email" : prompt("Change your email address:", users[userId].email),
-			"phone" : prompt("Enter new phone:", users[userId].phone)
-			}
-			Profile();
-		}
-	}
-	
-	//Delete profile
-	function deleteUser(userId) { //adds another info about a company
-		info = confirm("Are you sure you want to delete profile?")
-		if (info == true) {
-			users.splice(userId, 1);
-			Profile();
-
-		}
-	}
-	
-</script>
-</body>
-</html>
+        //Display function
+        function displayContent(){
+                 content = '';
+                 for (i = 0; i < users.length; i++) {
+                     if (users != null) {
+                    content += `<div>
+                         <img src="${users[i].pic}"<br>
+                         <div>
+                         <strong>Full Name: </strong> ${users[i].fullName}<br>
+                         <strong>Email: </strong> ${users[i].email}<br>
+                         <strong>Phone: </strong> ${users[i].phone}<br>
+                         </div>
+                         <button onClick="editUser(${i})" class="edit" >Edit</button> &nbsp; <button onClick="deleteUser(${i})" class="delete">Delete</button>
+                         </div>`
+                     }
+                 }
+                 document.getElementById("content").innerHTML = content
+                 users = JSON.parse(localStorage.getItem("userData"))
+                 displayContent()
+        }
+    
+            // Adding new User
+            function addUser() {
+                let newUser = {
+                "fullName" : prompt("Enter full name"),
+                "email": prompt("Enter email address"),
+                "phone": prompt("Enter a valid phone number"),
+                "pic": prompt("Insert an image")
+                }
+                users.push(newUser)
+                localStorage.setItem("userData", JSON.stringify(users));
+                displayContent()
+            }
+    
+            //Editing User
+            function editUser(id){
+                let newUserDetail = {
+                    "fullName": prompt("Edit name"),
+                    "email": prompt("Edit email address"),
+                    "phone": prompt("Change phone number"),
+                    "pic": prompt("Pick another image")
+                }
+                users[id] = newUserDetail
+                localStorage.setItem("userData", JSON.stringify(users));
+                displayContent();
+            }
+    
+            //Deleting User
+            function deleteUser(id){
+                if(confirm(`Are you sure you want to delete ${users[id].fullName}?`)){
+                users.splice(id, 1)
+                }
+            localStorage.setItem("userData", JSON.stringify(users));
+            displayContent();
+            }
+    </script>
+    </body>
+    </html>
