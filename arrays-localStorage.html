@@ -89,10 +89,10 @@
                          </div>
                          <button onClick="editUser(${i})" class="edit" >Edit</button> &nbsp; <button onClick="deleteUser(${i})" class="delete">Delete</button>
                          </div>`
-                     }
+                        }
                  }
                  document.getElementById("content").innerHTML = content
-                 users = JSON.parse(localStorage.getItem("userData"))
+                 users = JSON.parse(localStorage.getItem("user"))
                 }
                 displayContent()
     
@@ -105,7 +105,7 @@
                 "pic": prompt("Insert an image")
                 }
                 users.push(newUser)
-                localStorage.setItem("userData", JSON.stringify(users));
+                localStorage.setItem("user", JSON.stringify(users));
                 displayContent()
             }
     
@@ -118,7 +118,7 @@
                     "pic": prompt("Pick another image")
                 }
                 users[id] = newUserDetail
-                localStorage.setItem("userData", JSON.stringify(users));
+                localStorage.setItem("user", JSON.stringify(users));
                 displayContent();
             }
     
@@ -127,7 +127,7 @@
                 if(confirm(`Are you sure you want to delete ${users[id].fullName}?`)){
                 users.splice(id, 1)
                 }
-            localStorage.setItem("userData", JSON.stringify(users));
+            localStorage.setItem("user", JSON.stringify(users));
             displayContent();
             }
     </script>
