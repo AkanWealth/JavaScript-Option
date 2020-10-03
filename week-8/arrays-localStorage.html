@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User & Search function</title>
+</head>
+<style>
+    * body {
+        background: rgb(78, 141, 78);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    hr {
+        height: 5px;
+        width: 40%;
+        background: #fff;
+        margin-left: 0;
+    }
+    /* div content */
+    
+    div#content {
+        padding: 20px;
+        margin-left: 8%;
+        margin-top: 2%;
+    }
+    /* image */
+    
+    img {
+        width: 160px;
+        height: 200px;
+        border-radius: 40%;
+    }
+    
+    strong {
+        color: white;
+        margin: 10px;
+    }
+    /* button area */
+    
+    button {
+        width: 8%;
+        padding: 10px;
+        color: green;
+        background: #fff;
+        border: green;
+        outline: none;
+        margin-bottom: 5px;
+    }
+    
+    button.edit:hover {
+        color: #fff;
+        background-color: green;
+    }
+    
+    button.delete:hover {
+        color: #fff;
+        background-color: red;
+    }
+    
+    .new-profile {
+        background: green;
+        color: #fff;
+        margin-left: 200px;
+    }
+    
+    .new-profile:hover {
+        color: black;
+        background: #fff;
+    }
+    
+    input {
+        height: 30px;
+    }
+    
+    button.add {
+        margin-left: 10px;
+    }
+    
+    .search {
+        color: #fff;
+        background-color: rgb(74, 74, 182);
+    }
+    
+    .search-all {
+        color: #fff;
+        background-color: rgb(74, 74, 182);
+    }
+    
+    .search-part {
+        color: #fff;
+        background-color: rgb(74, 74, 182);
+    }
+    /* hover button */
+    
+    .search:hover {
+        color: #fff;
+        background-color: #23dd52;
+    }
+    
+    .search-all:hover {
+        color: #fff;
+        background-color: #23dd52;
+    }
+    
+    .search-part:hover {
+        color: #fff;
+        background-color: #23dd52;
+    }
+    /* button section ends */
+</style>
+<!-- input -->
+<div>
+    <button onClick="addUser()" class="new-profile">Add new profile</button>
+</div>
+<div class="content">
+    <input type="text" size="45" id="searchParam" placeholder="Search" />
+    <button onClick="search()" class="search">Search</button>
+    <button onClick="searchAll()" class="search-all">Search All</button>
+    <button onClick="container()" class="search-part">Search Part</button>
+    <h3 id="recordFound"></h3>
+    <!-- content -->
+    <div id="content"></div>
+</div>
+
+<body>
+    <script>
+        //Array profile
+        let users = [{
+            fullName: "AkanWealth Asanga",
+            email: "akan.asanga@gmail.com",
+            phone: "07012302221",
+            pic: "1.jpg",
+        }, {
+            fullName: "Akan Wealth",
+            email: "akan.wealth@gmail.com",
+            phone: "08131208722",
+            pic: "2.jpg",
+        }, ];
+        displayContent();
+
+        //Display function
+        function displayContent() {
+            content = "";
+            for (i = 0; i < users.length; i++) {
+                if (users != null) {
+                    content += `<div>
+                         <img src="${users[i].pic}"<br>
+                         <div>
+                         <strong>Full Name: </strong> ${users[i].fullName}<br>
+                         <strong>Email: </strong> ${users[i].email}<br>
+                         <strong>Phone: </strong> ${users[i].phone}<br>
+                         </div>
+                         <button onClick="editUser(${i})" class="edit" >Edit</button> &nbsp; <button onClick="deleteUser(${i})" class="delete">Delete</button>
+                         </div> <hr>`;
+                }
+            }
+            document.getElementById("content").innerHTML = content;
+            users = JSON.parse(localStorage.getItem("user")); // get content from local storage
+        }
+        displayContent(); // display content
+
+        // Adding new User
+        function addUser() {
+            let newUser = {
+                fullName: prompt("Enter full name"),
+                email: prompt("Enter email address"),
+                phone: prompt("Enter a valid phone number"),
+                pic: prompt("Insert an image"),
+            };
+            users.push(newUser);
+            localStorage.setItem("user", JSON.stringify(users)); // set content from local storage
+            displayContent(); // display content
+        }
+
+        //Editing User
+        function editUser(id) {
+            let newUserDetail = {
+                fullName: prompt("full name", users[id].fullName),
+                email: prompt("Edit email address", users[id].email),
+                phone: prompt("Change phone number", users[id].phone),
+                pic: prompt("Pick another image", users[id].pic),
+            };
+            users[id] = newUserDetail;
+            localStorage.setItem("user", JSON.stringify(users)); // set content from local storage
+            displayContent(); // display content
+        }
+
+        //Deleting User
+        function deleteUser(id) {
+            push = confirm(
+                `Are you sure you want to delete ${users[id].fullName}?`
+            );
+            if (push == true) {
+                users.splice(id, 1);
+            }
+            displayContent(); // display content
+        }
+
+        //Search one user
+        function search() {
+            searchOne = document.getElementById("searchParam").value;
+            usersProfile = users.find((x) => x.fullName == searchOne);
+            users = [];
+            if (users == undefined || users == null) {
+                alert(" No record found");
+            } else {
+                users = [];
+            }
+            users.push(usersProfile);
+            displayContent(); // display content
+        }
+        //Search all user
+        function searchAll() {
+            allSearch = document.getElementById("searchParam").value;
+            users = users.filter((x) => x.fullName == allSearch);
+            if (users == undefined || users == null) {
+                alert("No record found");
+            } else if (users.length <= 1) {
+                document.getElementById("recordFound").innerHTML =
+                    users.length + "record found";
+            } else {
+                document.getElementById("recordFound").innerHTML =
+                    users.length + "records found";
+            }
+            displayContent(); // display content
+        }
+
+        // Search for container
+        function container() {
+            allSearch = document.getElementById("searchParam").value;
+            users = users.filter((x) =>
+                x.fullName.toLowerCase().includes(allSearch.toLowerCase())
+            );
+            if (users == undefined || users == null) {
+                alert("No record found");
+            } else if (users.length <= 1) {
+                document.getElementById("recordFound").innerHTML =
+                    users.length + "record found";
+            } else {
+                document.getElementById("recordFound").innerHTML =
+                    users.length + " records found ";
+            }
+            displayContent(); // display content
+        }
+    </script>
+</body>
+
+</html>
