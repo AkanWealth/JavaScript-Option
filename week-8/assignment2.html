@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASYNC</title>
+
+    <style>
+        #myDiv {
+            color: white;
+            width: 300px;
+            height: 300px;
+            background-color: rgb(31, 214, 46);
+            animation: 3000ms example linear;
+            display: none;
+            margin: auto;
+            border-radius: 50%;
+            transition-duration: 4s;
+        }
+        
+        @keyframes example {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1.0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="showMsg()"> Show Message</button>
+    <div id="myDiv"></div>
+
+    <script>
+        async function showMsg() {
+            showBox();
+
+            await showText();
+        }
+
+        function showBox() {
+            document.getElementById('myDiv').style.display = "block";
+        }
+
+        function showText() {
+            setTimeout(() => {
+                var node = document.createElement('p');
+                var textNode = document.createTextNode("TIIDELab");
+                node.appendChild(textNode);
+                document.getElementById('myDiv').appendChild(node);
+                node.setAttribute('id', 'myText');
+                document.getElementById('myText').style.textAlign = "center";
+                document.getElementById('myText').style.padding = "20px";
+                document.getElementById('myText').style.fontSize = "20px";
+                document.getElementById('myText').style.fontWeight = "bold";
+            }, 3000)
+        }
+    </script>
+</body>
+
+</html>
+</body>
+
+</html>

@@ -1,0 +1,239 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag & Drop</title>
+</head>
+<style>
+    img {
+        width: 100px;
+        cursor: pointer;
+        display: flex;
+    }
+    
+    div.pick {
+        display: flex;
+    }
+    
+    div.image {
+        display: flex;
+    }
+    
+    .image {
+        margin-top: 10px;
+    }
+    
+    #pic1 {
+        margin-left: 10px;
+        width: 50px;
+        height: 60px;
+    }
+    
+    #pic2 {
+        margin-left: 10px;
+        width: 50px;
+        height: 60px;
+    }
+    
+    #pic3 {
+        margin-left: 10px;
+        width: 50px;
+        height: 60px;
+    }
+    
+    .pick {
+        display: flex;
+    }
+    
+    #parentContent {
+        display: flex;
+    }
+</style>
+
+<body>
+    <div class="pick">
+        <div id="parentContent" style="width: 500px; height: 400px; background-color: green;" ondragover="dropAble(event)"></div>
+        <div id="parentContent" style="width: 500px; height: 400px; background-color: yellowgreen;" ondragover="dropAble(event)"></div>
+        <div id="parentContent" style="width: 500px; height: 400px; background-color: greenyellow;" ondragover="dropAble(event)"></div>
+    </div>
+
+    <div class="image">
+        <img src="./1.jpg" alt="" id="pic1" onClick="AppendImage(event)" draggable="true" ondrag="drop(event)">
+        <img src="./2.jpg" alt="" id="pic2" onClick="AppendImage(event)" draggable="true" ondrag="drop(event)">
+        <img src="./3.jpg" alt="" id="pic3" onClick="AppendImage(event)" draggable="true" ondrag="drop(event)">
+    </div>
+</body>
+<script>
+    function AppendImage(e) {
+        elementId = e.target.id
+        elementTagName = e.target.tagName
+
+        element = document.getElementById(elementId)
+        container = document.getElementById("parentContent")
+        container.appendChild(element)
+    }
+    id = [];
+
+    function dropAble(e) {
+        e.preventDefault();
+    }
+
+    function drag(e) {
+        e.dataTransfer.setData("id", e.target.id);
+    }
+
+    function drop(e) {
+        e.preventDefault()
+        elementId = e.dataTransfer.getData("id"); // get element id
+        element = document.getElementById(elementId); //get element to be drag by id
+        newImage = document.createElement("img");
+        // newImage.src = element.src
+        // container = document.getElementById("parentContent"); // get element to be dragged to by it id
+        // container.appendChild(element); //append the element to it container
+        e.target.appendChild(newImage);
+    }
+</script>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM</title>
+
+    <style>
+        img {
+            max-width: 100px;
+        }
+        
+        #container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: grey;
+            height: 200px;
+            width: 50%;
+            display: flexbox;
+            flex-wrap: wrap;
+        }
+        
+        #container2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(24, 110, 150);
+            height: 200px;
+            width: 50%;
+            display: flexbox;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <main></main>
+
+    <a href="https://google.com" onclick="doNotVisit(event)">Visit Google</a>
+
+    <div style="display: flex; justify-content: space-around">
+        <div id="container" ondragover="droppable(event)" ondrop="drop(event)"></div>
+        <div id="container2" ondragover="droppable(event)" ondrop="drop(event)"></div>
+    </div>
+    <p></p>
+    <p></p>
+
+    <img src="./1.jpg" id="Malik" onclick="appendImage(event)" draggable="true" ondragstart="drag(event)" style="margin-right: 5px" />
+    <img src="./2.jpg" id="Mukhtar" onclick="appendImage(event)" draggable="true" ondragstart="drag(event)" style="margin-right: 5px" />
+    <button id="button" draggable="true" ondragstart="drag(event)" style="margin-right: 5px">
+      Drag Me!
+    </button>
+
+    <script>
+        var heading, main;
+        heading = document.createElement("h1");
+        main = document.querySelector("main");
+        main.appendChild(heading);
+        document.querySelector("h1").innerHTML = "DOM Manipulation";
+
+        function appendImage(e) {
+            // event.target
+            let elementId = e.target.id;
+            let elementTagName = e.target.tagName;
+
+            let firstImg = document.getElementById(elementId);
+            let container = document.getElementById("container");
+
+            container.appendChild(firstImg);
+        }
+
+        document.getElementById("btn").addEventListener("click", (e) => {
+            el = e.target.tagName;
+            alert("My Tag is" + el);
+        });
+        document.getElementById("img1").addEventListener("click", (e) => {
+            el = e.target.tagName;
+            alert("My Tag is " + el);
+        });
+
+        function doNotVisit(e) {
+            e.preventDefault();
+        }
+
+        function droppable(e) {
+            e.preventDefault();
+        }
+
+        function drag(e) {
+            e.dataTransfer.setData("id", e.target.id);
+        }
+
+        function drop(e) {
+            e.preventDefault();
+            // get all element id dynamically
+            // let elementId = e.target.id;
+
+            // get element to be dragged by ID
+            let elementId = e.dataTransfer.getData("id");
+            let element = document.getElementById(elementId);
+
+            //creating copy of the element
+            let newImage = document.createElement("img");
+            newImage.src = element.src;
+            newImage.style.margin = "5px";
+            newImage.id = element.id;
+
+            let newButton = document.createElement("button");
+            newButton.textContent = "I changed";
+
+            // get container to be dragged to be ID
+            let container = document.getElementById("container");
+            let container2 = document.getElementById("container2");
+
+            // append element to the container
+            // container.appendChild(newImage);
+            // alert(newImage.tagName);
+            // alert(newButton.tagName);
+            if (e.target.id == "container") {
+                if (element.tagName == "IMG") {
+                    container.appendChild(newImage);
+                } else if (element.tagName == "BUTTON") {
+                    container.appendChild(newButton);
+                } else {}
+            }
+            if (e.target.id == "container2") {
+                if (element.tagName == "IMG") {
+                    container2.innerText += element.id;
+                } else if (element.tagName == "BUTTON") {
+                    container2.innerText += element.id;
+                } else {}
+            }
+        }
+    </script>
+</body>
+
+</html>

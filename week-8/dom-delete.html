@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        img {
+            width: 200px;
+        }
+        
+        div#canvas {
+            background-color: rgb(84, 204, 15);
+            width: 300px;
+            height: 200px
+        }
+        
+        .company-text {
+            border: 5px solid blue;
+            padding: 10px;
+            margin: 20px;
+        }
+        
+        .company-text2 {
+            /* border: 5px solid blue;
+            padding: 10px; */
+            margin: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div id="canvas" ondblClick=deleteElement(event) akan="popDaddy"> 
+
+
+    </div>-->
+    <p id="keyUpText"></p>
+    <input type="text" onkeyup="handleKeyUp()" id="keyUpExample">
+    <p></p>
+    <P></P>
+    <hr>
+    <input type="color" id="myColor" onblur="setFontColor()">
+    <!-- <button onClick="setFontColor()">Change color</button> -->
+    <img src="./1.jpg" alt="img" id="img" ondblClick=deleteElement(event)>
+    <span>
+        Akan is a amazing ask Mr Shams
+    </span>
+    <p id="p1">
+        This is paragraph one
+    </p>
+    <p id="p2">
+        This is paragraph two
+    </p>
+</body>
+<script>
+    //Focus
+    // function handleFocus() {
+    //     alert("am up")
+    // }
+    function handleKeyUp() {
+        typed = document.getElementById("keyUpExample").value
+        document.getElementById("keyUpText").innerHTML = typed
+    }
+
+
+    //Get Element by styled
+    //element.style.property = value
+    element = document.getElementsByTagName("span")[0].style.color = "blue"
+        // 1.cssText
+    document.getElementById("p1").style.cssText = "border:10px solid cyan; padding:20px; border-radius: 20px"
+
+    // 2. classList
+    p2 = document.getElementById("p2")
+    p2.classList.add("company-text")
+    p2.classList.add("company-text2")
+
+    //3. setAttribute
+    p2.setAttribute("chidinma", "fineGirl")
+    p2.setAttribute("style", "color:red")
+
+
+    function deleteElement(e) {
+        if (confirm('Are you sure you want to delete')) {
+            elementId = e.target.id // Get the element by ID
+            ele = document.getElementById(elementId) //Get the ID
+            parent = ele.parentNode //Get the parent
+            parent.removeChild(ele) //Remove child from the parent
+        } else {
+            alert('Check again')
+        }
+    }
+
+    function setFontColor() {
+        const colorName = document.getElementById("myColor").value
+        p2.setAttribute("style", `color: ${colorName}`)
+    }
+</script>
+
+</html>

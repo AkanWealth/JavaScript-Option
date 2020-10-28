@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASYNC Test</title>
+</head>
+
+<body>
+    <script>
+        function createAudio(videoSource) {
+
+            return new Promise(function(resolve, reject) {
+                let video = document.createElement('video');
+                let source = document.createElement('source');
+                video.setAttribute('controls', 'controls')
+                video.setAttribute('id', 'video')
+                source.src = videoSource;
+                video.appendChild(source)
+                video.onload = function() {
+                    resolve(video)
+                }
+                video.onerror = function() {
+                    reject(new Error("Video source not valid"))
+                }
+                document.body.appendChild(video);
+            })
+
+
+        }
+
+        async function playAudio() {
+            createAudio("http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4")
+            await document.getElementById("video").play();
+        }
+
+        playAudio();
+    </script>
+</body>
+
+</html>
